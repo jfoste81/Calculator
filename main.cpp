@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -11,16 +12,22 @@ int main(){
     double result;
 
     cout << "Enter an equation: ";
-    cin >> equation;
+    getline(cin, equation);
 
     for(int i = 0; i < equation.size(); i++){
+        //make the character add to a string until it reaches a space -> then convert that string to an int and add it to the nums vector
+        //then add the operator to the operators vector
         char c = equation[i];
         if(equation[i] == '+' || equation[i] == '-' || equation[i] == '*' || equation[i] == '/'){
             operators.push_back(equation[i]);
         }
         else if(isdigit(equation[i])){
-            nums.push_back(equation[i]);
+            nums.push_back(atoi(&equation[i]));
         }
+    }
+
+    for(int i : nums){
+        cout << i << endl;
     }
 
     for(int i = 0; i < nums.size(); i++){
