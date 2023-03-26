@@ -9,7 +9,7 @@ int main(){
     string equation;
     vector<double> nums;
     vector<char> operators;
-    double result;
+    // double result;
     string willBeANumber = "";
 
     cout << "Enter an equation: ";
@@ -27,40 +27,31 @@ int main(){
         }
     }
 
-    for(int i : nums){ // REMOVE THIS SECTION LATER
-        cout << i << endl;
-    }
-    for(char i : operators){ // REMOVE THIS SECTION LATER
-        cout << i << endl;
-    }
-
-    int size = nums.size();
-    for(int i = 0; i <= size; i++){
-        // double temp = 0;
-        if(operators[i] == '+'){
-            i++;
-            cout << "Adding " << nums[0] << " and " << nums[i] << endl;
-            nums[0] += nums[i];
-        }
-        else if(operators[i] == '-'){
-            i++;
-            cout << "Subtracting " << nums[0] << " and " << nums[i] << endl;
-            nums[0] -= nums[i];
-        }
-        else if(operators[i] == '*'){
-            i++;
-            cout << "Multiplying " << nums[0] << " and " << nums[i] << endl;
-            nums[0] *= nums[i];
+    for(int i = 0; i < operators.size(); i++){
+        if(operators[i] == '*'){
+            nums[i] *= nums[i + 1];
+            nums.erase(nums.begin() + i + 1);
+            operators.erase(operators.begin() + i);
+            i--;
         }
         else if(operators[i] == '/'){
-            i++;
-            cout << "Dividing " << nums[0] << " and " << nums[i] << endl;
-            nums[0] /= nums[i];
-        } else {
-            cout << "No operator found." << endl;
-        }    
+            nums[i] /= nums[i + 1];
+            nums.erase(nums.begin() + i + 1);
+            operators.erase(operators.begin() + i);
+            i--;
+        } else if(operators[i] == '+'){
+            nums[i] += nums[i + 1];
+            nums.erase(nums.begin() + i + 1);
+            operators.erase(operators.begin() + i);
+            i--;
+        } else if(operators[i] == '-'){
+            nums[i] -= nums[i + 1];
+            nums.erase(nums.begin() + i + 1);
+            operators.erase(operators.begin() + i);
+            i--;
+        }
     }
-    result += nums[0];
-    cout << "Answer: " << result << endl;
+
+    cout << "Answer: " << nums[0] << endl;
     return 0;
 }
